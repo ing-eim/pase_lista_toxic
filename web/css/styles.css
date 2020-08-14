@@ -1,0 +1,78 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14/04/2020, 03:59:38 PM
+    Author     : LALO-DOCIZ
+*/
+
+.form-rounded {
+border-radius: 0.5rem;
+}
+
+.embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+.embed-container iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.logoin{
+    margin-left: 50%;
+    margin-right: 50%;
+}
+
+.msg{
+    text-align: center;
+    font-size: 10pt;
+    color: red;
+    font-style:italic;
+}
+
+#panelSup{
+    font-style: italic;
+    font-size: 12pt;
+    font-weight: bold;
+    background-color: #ced4da;
+}
+.title_sis{
+    font-family: Arial;    
+    font-size: 18pt;
+    font-weight: bold;
+    background-color: #030567;
+    color:#fff;
+    text-align: center;
+}
+.title_lg{
+    font-family: Arial;    
+    font-size: 18pt;
+    font-weight: bold;    
+    color:#004085;
+    text-align: center;
+}
+
+.footer_s{
+    font-family: Arial;    
+    font-size: 13pt;
+    font-weight: bold;    
+    color:#004085;
+    text-align: center;
+}
+
+.reloj_s{
+     font-family: Arial;    
+    font-size: 12pt;
+    font-weight: bold;    
+    color:#000;
+    text-align: right;
+    
+}
