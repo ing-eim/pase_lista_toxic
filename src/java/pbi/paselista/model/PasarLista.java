@@ -32,12 +32,14 @@ public class PasarLista {
     }
     
     public String BuscarPersonal () throws IOException{
-        String salida="";
-        Connection conn = new dbConnect().getConnection();   
+        String salida = "";
+        String table =  "<table>";
+        String tipopersonal = "";
+        Connection conn = new dbConnect().getConnection();
         //JCGlobals jc = new JCGlobals();        
         int nr = 0;                
         try{
-            String query = "{call consultasSiudd.sp_search_pers_toxicologico(?)}";
+            String query = "{call db_pbi_biometrico.sp_search_pers_toxicologico(?)}";
             CallableStatement stmt;
             stmt = conn.prepareCall(query);
             stmt.setInt(1,this.c_i_placa);
@@ -49,21 +51,38 @@ public class PasarLista {
                 
                 while(rs.next()){
                     nr++;
-                    salida ="<center><div class='form-control'>"
-                                 +     rs.getString("nIdNumEmp")+" - "+rs.getString("tApePaterno")+" "+rs.getString("tApeMaterno")+" "+rs.getString("tNombre")
-                                 + "</div></center>";                    
-                    /*table += "<tr><td>"+nr+"</td>"
-                            +   "<td>"+rs.getString("d_v_observacion")+"</td>"
-                            +   "<td>"+rs.getString("f_d_observacion")+"</td>"
-                            +   "<td><button class='btn btn-info' onclick ='CargaDatosEditaObs(this,"+rs.getString("pk_i_observacion")+")' data-toggle=\"modal\" data-target=\"#ModalEditaObservacion\">Editar</button></td>"
-                            +   "<td><button class='btn btn-danger' onclick='DeleteObs("+rs.getString("pk_i_observacion")+")'>Eliminar</button></td>"
-                            + "</tr>";                    */
+                    /*salida ="<center><div class='form-control'>"
+                                 
+                                 +   rs.getString("c_i_placa")+" - "+rs.getString("tApePaterno")+" "+rs.getString("tApeMaterno")+" "+rs.getString("tNombre")
+                                 + "</div></center>";     */               
+                    
+                    tipopersonal="";
+                    if (rs.getInt("c_i_tipopersonal")== 1 ){
+                        tipopersonal="<strong>REVALIDACION</strong>";
+        	    }else{
+                        tipopersonal="<strong>INCLUSION</strong>";
+                    }
+
+                    table += "<tr><td></td><td style='text-align:center'>"+tipopersonal+"</td></tr>"
+                            +"<tr><td>Placa: </td><td>"+rs.getString("c_i_placa")+"</td></tr>"
+                            +"<tr><td>Grado: </td><td>"+rs.getString("d_v_grado")+"</td></tr>"
+                            +"<tr><td>Nombre: </td><td>"+rs.getString("Nombre")+"</td></tr>"
+                            +"<tr><td>Sector: </td><td>"+rs.getString("Sector")+"</td></td>";
+                    if(rs.getInt("pk_i_persona") > 0){
+                       	table += "<tr><td>EL ELEMENTO YA FUE REGISTRADO</td></tr>"+
+                                 "<tr><td><input type='hidden' id='valido' value=0></td></tr>";
+		    }else{
+                        table += " <tr><td colspan='2'><button type='submit' class='btn btn-success btn-block' onclick='RegistrarPersonal();'>REGISTRO</button></td></tr>"+
+			         "<tr><td><input type='hidden' id='valido' value=1></td></tr>";						
+                    }                            
+                            
                 }                
                 hadResults = stmt.getMoreResults();
             }
             if (nr == 0){
-                salida ="<div><center> SIN REGISTROS </center></div>";
-            }
+                salida ="<div><center> PERSONAL NO SE ENCUENTRA EN LISTADO </center></div>";
+            }else
+                salida = table + "</table>";
             stmt.close();
             conn.close();
         }catch(Exception w){
@@ -122,4 +141,44 @@ public class PasarLista {
         }
         return reader.read(0, param);
     }    
+    
+    public boolean RegistraAsistencia () throws IOException{
+        int numerror = 0;
+        
+        Connection conn = new dbConnect().getConnection();
+        JCGlobals jc = new JCGlobals();        
+        int nr = 0;                
+        try{
+            String query = "{call db_pbi_biometrico.sp_registra_asist_toxic(?)}";
+            CallableStatement stmt;
+            stmt = conn.prepareCall(query);
+            stmt.setInt(1,this.c_i_placa);
+            boolean hadResults = stmt.execute();
+             // print headings            
+            System.out.println("========= OBTENIEDO INFO DEL PERSONAL  =======================");            
+            while (hadResults) {
+                ResultSet rs = stmt.getResultSet();
+                
+                while(rs.next()){
+                       numerror = rs.getInt("error");
+                       jc.setMsg(rs.getString("msg"));
+                }                
+                hadResults = stmt.getMoreResults();
+            }            
+            stmt.close();
+            conn.close();
+            if(numerror == 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception w){
+            System.out.println("¡ ERROR !"+w.getMessage());            
+            w.printStackTrace();
+            return false;
+        }              
+    }
+    
+    
+    
 }

@@ -24,16 +24,16 @@ public class dbParams {
         setdbControllerMSProd();
     }
     
-    private void setdbHostMSProd(){ this.dbHost = "jdbc:mysql://172.30.1.212:3306/dbpolban"; }
+    private void setdbHostMSProd(){ this.dbHost = "jdbc:mysql://172.30.1.131:3366/db_pbi_biometrico"; }
     public String getdbHostMSProd(){return dbHost;}
    
-    private void setdbUserMSProd(){ this.dbUser = "root"; }
+    private void setdbUserMSProd(){ this.dbUser = "pbidis"; }
     public String getdbUserMSProd(){return dbUser;}
    
-    private void setdbPwdMSProd(){ this.dbPwd = "kr4t0spbi2013"; }
+    private void setdbPwdMSProd(){ this.dbPwd = "pb1d1z"; }
     public String getdbPwdMSProd(){return dbPwd;}
    
-    private void setdbPortMSProd(){ this.dbPort = "3306"; }
+    private void setdbPortMSProd(){ this.dbPort = "3366"; }
     public String getdbPortMSProd(){return dbPort;}
    
     private void setdbControllerMSProd(){ this.dbController = "com.mysql.jdbc.Driver"; }

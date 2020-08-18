@@ -23,27 +23,33 @@
         </nav>
         <div class="container">
                 <div class = "row" >
-                    <div class = "col-sm-5" >
-                    </div>
-                    <div class = "col-sm-2" >
-                        <input type="text" class="form-control" id="c_i_placa" name="c_i_placa" value=""/>
+                    <div class = "col-sm-4" >
+                    </div>    
+                    <div class = "col-sm-4" >
+                        <input type="text" class="form-control" id="c_i_placa" name="c_i_placa" value="" style="text-align: center"/>
                     </div>                                    
-                    <div class = "col-sm-5" >
-                    </div>
+                    <div class = "col-sm-4" >
+                    </div>    
                 </div>
-                <div class = "row">
-                    <div class = "col-sm-5">                       
-                    </div>
-                    <div class = "col-sm-2">                        
-                        <input type="button" class="form-control btn-success" value="Validar" id="validar"/>
-                    </div>
-                    <div class = "col-sm-5" >
-                    </div>
-                </div>                     
-        </div>
-        <div class="container" id="resultado">                  
+                <div class = "row">                                        
+                    <div class = "col-sm-4" >
+                    </div>    
+                    <div class = "col-md-4">                        
+                        <!--<input type="button" class="form-control btn-success" value="Validar" id="validar"/>-->
+                        <center><small><strong>Ingrese la Placa del Elemento y Presione Enter</strong></small></center>
+                    </div>                    
+                    <div class = "col-sm-4" >
+                    </div>    
+                </div>                                  
         </div>
         <div class="container" id="imagen">                  
         </div>
+        <center>
+        <div class="container" id="resultado">                  
+            
+        </div>
+        </center>
+        
+        
     </body>
 </html>
